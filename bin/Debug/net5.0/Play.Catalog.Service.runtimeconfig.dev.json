@@ -1,0 +1,8 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "/Users/levit.osei-wusu/.dotnet/store/|arch|/|tfm|",
+      "/Users/levit.osei-wusu/.nuget/packages"
+    ]
+  }
+}
