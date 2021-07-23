@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using MongoDB.Driver;
@@ -22,6 +23,31 @@ namespace Play.Catalog.Service.Repositories
         public async Task<IReadOnlyCollection<Item>> GetItemsAsync()
         {
             return await DBCollection.Find(FilterDefinition<Item>.Empty).ToListAsync();
+        }
+
+        public async Task<Item> GetItemAsync (Guid id)
+        {
+            var filter = FilterDefinition.Eq(item => item.Id, id);
+            return await DBCollection.Find(filter).FirstOrDefaultAsync();
+        }
+
+        public async Task CreateItemAsync(Item item)
+        {
+            if (item == null) throw new ArgumentException(nameof(item)); 
+            await DBCollection.InsertOneAsync(item);
+        }
+
+        public async Task UpdateItem(Item item)
+        {
+            if (item == null) throw new ArgumentException(null, nameof(item));
+            var filter = FilterDefinition.Eq(entity => entity.Id, item.Id);
+            await DBCollection.ReplaceOneAsync(filter, item);
+        }
+
+        public async Task DeleteItemAsync(Guid id)
+        {
+            var filter = FilterDefinition.Eq(item => item.Id, id);
+            await DBCollection.DeleteOneAsync(filter);
         }
     }
 }

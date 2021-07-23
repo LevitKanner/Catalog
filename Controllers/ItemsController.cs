@@ -1,6 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Play.Catalog.Service.Repositories;
 
 namespace Play.Catalog.Service.Controllers
 {
@@ -8,30 +11,26 @@ namespace Play.Catalog.Service.Controllers
     [Route("items")]
     public class ItemsController : ControllerBase
     {
-        private static readonly List<ItemDto> Items = new()
-        {
-            new ItemDto(Guid.NewGuid(), "Imac 2017", "Work device", 9000, DateTimeOffset.Now),
-            new ItemDto(Guid.NewGuid(), "Imac 2017", "Work device", 9000, DateTimeOffset.Now),
-            new ItemDto(Guid.NewGuid(), "Imac 2017", "Work device", 9000, DateTimeOffset.Now),
-        };
+        private readonly ItemRepository _repository = new();
+
 
         //Method: GET 
         //Route: /items
         //Returns: All items
         [HttpGet]
-        public IEnumerable<ItemDto> GetItems()
+        public async Task<IEnumerable<ItemDto>> GetItems()
         {
-            return Items;
+            return (await _repository.GetItemsAsync()).Select(item => item.AsItemDto());
         }
 
         //Method: GET 
         //Route: /items/{id}
         //Returns: Items with Id equal to id parameter
         [HttpGet("{id:guid}")]
-        public ActionResult<ItemDto> GetItem(Guid id)
+        public async Task<ActionResult<ItemDto>> GetItem(Guid id)
         {
-            var item = Items.Find(element => element.Id == id);
-            return  item == null ? NotFound() : item;
+            var item = await _repository.GetItemAsync(id);
+            return item == null ? NotFound() : item.AsItemDto();
         }
 
         //Method: POST
@@ -64,7 +63,7 @@ namespace Play.Catalog.Service.Controllers
             Items[indexOfItem] = updatedItem;
             return NoContent();
         }
-        
+
         //Method: DELETE   
         //Route: /items/{id}
         //Return: void
@@ -76,7 +75,5 @@ namespace Play.Catalog.Service.Controllers
             Items.RemoveAt(index);
             return NoContent();
         }
-        
-        
     }
 }
