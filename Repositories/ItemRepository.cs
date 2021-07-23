@@ -6,7 +6,7 @@ using Play.Catalog.Service.Models;
 
 namespace Play.Catalog.Service.Repositories
 {
-    public class ItemRepository
+    public class ItemRepository : IItemRepository
     {
         private const string CollectionName = "Items";
         private const string DBName = "Catalog";
