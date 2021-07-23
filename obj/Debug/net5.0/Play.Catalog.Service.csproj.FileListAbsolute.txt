@@ -26,3 +26,15 @@
 /Users/levit.osei-wusu/Documents/learningHub/Play.Catalog/Play.Catalog.Service/obj/Debug/net5.0/ref/Play.Catalog.Service.dll
 /Users/levit.osei-wusu/Documents/learningHub/Play.Catalog/Play.Catalog.Service/obj/Debug/net5.0/Play.Catalog.Service.pdb
 /Users/levit.osei-wusu/Documents/learningHub/Play.Catalog/Play.Catalog.Service/obj/Debug/net5.0/Play.Catalog.Service.genruntimeconfig.cache
+/Users/levit.osei-wusu/Documents/learningHub/Play.Catalog/Play.Catalog.Service/bin/Debug/net5.0/DnsClient.dll
+/Users/levit.osei-wusu/Documents/learningHub/Play.Catalog/Play.Catalog.Service/bin/Debug/net5.0/MongoDB.Bson.dll
+/Users/levit.osei-wusu/Documents/learningHub/Play.Catalog/Play.Catalog.Service/bin/Debug/net5.0/MongoDB.Driver.dll
+/Users/levit.osei-wusu/Documents/learningHub/Play.Catalog/Play.Catalog.Service/bin/Debug/net5.0/MongoDB.Driver.Core.dll
+/Users/levit.osei-wusu/Documents/learningHub/Play.Catalog/Play.Catalog.Service/bin/Debug/net5.0/MongoDB.Libmongocrypt.dll
+/Users/levit.osei-wusu/Documents/learningHub/Play.Catalog/Play.Catalog.Service/bin/Debug/net5.0/SharpCompress.dll
+/Users/levit.osei-wusu/Documents/learningHub/Play.Catalog/Play.Catalog.Service/bin/Debug/net5.0/runtimes/win/native/libzstd.dll
+/Users/levit.osei-wusu/Documents/learningHub/Play.Catalog/Play.Catalog.Service/bin/Debug/net5.0/runtimes/win/native/snappy32.dll
+/Users/levit.osei-wusu/Documents/learningHub/Play.Catalog/Play.Catalog.Service/bin/Debug/net5.0/runtimes/win/native/snappy64.dll
+/Users/levit.osei-wusu/Documents/learningHub/Play.Catalog/Play.Catalog.Service/bin/Debug/net5.0/runtimes/linux/native/libmongocrypt.so
+/Users/levit.osei-wusu/Documents/learningHub/Play.Catalog/Play.Catalog.Service/bin/Debug/net5.0/runtimes/osx/native/libmongocrypt.dylib
+/Users/levit.osei-wusu/Documents/learningHub/Play.Catalog/Play.Catalog.Service/bin/Debug/net5.0/runtimes/win/native/mongocrypt.dll
