@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Play.Catalog.Service.Models;
 using Play.Catalog.Service.Repositories;
 
 namespace Play.Catalog.Service.Controllers
@@ -37,11 +38,15 @@ namespace Play.Catalog.Service.Controllers
         //Route: /items
         //Return: Created item
         [HttpPost]
-        public ActionResult<ItemDto> CreateItem(CreateItemDto item)
+        public async Task<ActionResult<ItemDto>> CreateItem(CreateItemDto item)
         {
             var (name, description, price) = item;
-            var newItem = new ItemDto(Guid.NewGuid(), name, description, price, DateTimeOffset.Now);
-            Items.Add(newItem);
+            var newItem = new Item
+            {
+                Id = Guid.NewGuid(), Name = name, Description = description, Price = price,
+                CreatedAt = DateTimeOffset.Now
+            };
+            await _repository.CreateItemAsync(newItem);
             return CreatedAtAction(nameof(GetItem), new {id = newItem.Id}, newItem);
         }
 
@@ -49,18 +54,21 @@ namespace Play.Catalog.Service.Controllers
         //Route: /items/{id}
         //Return: Void
         [HttpPut("{id:guid}")]
-        public IActionResult UpdateItem(Guid id, UpdateItemDto update)
+        public async Task<IActionResult> UpdateItem(Guid id, UpdateItemDto update)
         {
-            var indexOfItem = Items.FindIndex(element => element.Id == id);
-            if (indexOfItem == -1) return NotFound();
+            var searchItem = await _repository.GetItemAsync(id);
+            if (searchItem == null) return NotFound();
+
             var (name, description, price) = update;
-            var updatedItem = Items[indexOfItem] with
+            var updatedItem = new Item
             {
+                Id = searchItem.Id,
                 Name = name,
                 Description = description,
-                Price = price
+                Price = price,
+                CreatedAt = searchItem.CreatedAt
             };
-            Items[indexOfItem] = updatedItem;
+            await _repository.UpdateItem(updatedItem);
             return NoContent();
         }
 
@@ -68,11 +76,11 @@ namespace Play.Catalog.Service.Controllers
         //Route: /items/{id}
         //Return: void
         [HttpDelete("{id:guid}")]
-        public IActionResult DeleteItem(Guid id)
+        public async Task<IActionResult> DeleteItem(Guid id)
         {
-            var index = Items.FindIndex(item => item.Id == id);
-            if (index == -1) return NotFound();
-            Items.RemoveAt(index);
+            var searchItem = await _repository.GetItemAsync(id);
+            if (searchItem == null ) return NotFound();
+            await _repository.DeleteItemAsync(id);
             return NoContent();
         }
     }
